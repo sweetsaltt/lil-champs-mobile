@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lil_champs/widgets/left_drawer.dart';
+import 'package:lil_champs/widgets/product_card.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({super.key});
@@ -8,19 +10,19 @@ class MyHomePage extends StatelessWidget {
   final String kelas = "PBP D";
 
 
-
   final List<ItemHomepage> items = [
-    ItemHomepage("All Products", Icons.newspaper, Colors.blue),
-    ItemHomepage("My Products", Icons.my_library_books, Colors.green),
-    ItemHomepage("Create Products", Icons.add, Colors.red),
+    ItemHomepage("All Products", Icons.shopping_bag, Colors.blue),
+    ItemHomepage("My Products", Icons.shopping_basket, Colors.green),
+    ItemHomepage("Add Product", Icons.add, Colors.red),
   ];
 
   @override
   Widget build(BuildContext context) {
+    // Scaffold menyediakan struktur dasar halaman dengan AppBar dan body.
     return Scaffold(
-      // AppBar, bagian atas halaman yang menampilkan judul.
+      // AppBar adalah bagian atas halaman yang menampilkan judul.
       appBar: AppBar(
-        // Judul aplikasi.
+        // Judul aplikasi "Football News" dengan teks putih dan tebal.
         title: const Text(
           'Lil Champs',
           style: TextStyle(
@@ -29,8 +31,12 @@ class MyHomePage extends StatelessWidget {
           ),
         ),
         // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .primary,
       ),
+      drawer: LeftDrawer(),
       // Body halaman dengan padding di sekelilingnya.
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -57,11 +63,11 @@ class MyHomePage extends StatelessWidget {
                 // Menyusun teks dan grid item secara vertikal.
 
                 children: [
-                  // Menampilkan teks sambutan.
+                  // Menampilkan teks sambutan dengan gaya tebal dan ukuran 18.
                   const Padding(
                     padding: EdgeInsets.only(top: 16.0),
                     child: Text(
-                      'Selamat datang di Lil Champs',
+                      'Welcome to Lil Champs',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18.0,
@@ -100,7 +106,6 @@ class InfoCard extends StatelessWidget {
   final String title;  // Judul kartu.
   final String content; // Isi kartu.
 
-
   const InfoCard({super.key, required this.title, required this.content});
 
   @override
@@ -134,58 +139,4 @@ class ItemHomepage {
   final Color color; // warna latar belakang
 
   ItemHomepage(this.name, this.icon, this.color);
-}
-
-class ItemCard extends StatelessWidget {
-  // Menampilkan kartu dengan ikon dan nama.
-
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      // Menentukan warna latar belakang dari item.
-      color: item.color,
-      // Membuat sudut kartu melengkung.
-      borderRadius: BorderRadius.circular(12),
-
-      child: InkWell(
-        // Aksi ketika kartu ditekan.
-        onTap: () {
-          // Menampilkan pesan SnackBar saat kartu ditekan.
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-                SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
-            );
-        },
-        // Container untuk menyimpan Icon dan Text
-        child: Container(
-          padding: const EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              // Menyusun ikon dan teks di tengah kartu.
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item.icon,
-                  color: Colors.white,
-                  size: 30.0,
-                ),
-                const Padding(padding: EdgeInsets.all(3)),
-                Text(
-                  item.name,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
 }
